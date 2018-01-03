@@ -1,0 +1,11 @@
+FROM openjdk:7-jdk
+
+# Download hadoop
+RUN wget -qO- http://mirror.dkd.de/apache/hadoop/common/hadoop-2.9.0/hadoop-2.9.0.tar.gz | tar xz -C /opt && \
+    mv /opt/hadoop-2.9.0 /opt/hadoop
+
+ENV PATH="/opt/hadoop/bin:/opt/hadoop/sbin:${PATH}"
+
+RUN apt-get update && apt-get install -y ssh rsync vim net-tools
+
+RUN sed -i '/export JAVA_HOME=${JAVA_HOME}/c\export JAVA_HOME=\/usr' /opt/hadoop/etc/hadoop/hadoop-env.sh
