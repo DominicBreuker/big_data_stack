@@ -1,0 +1,12 @@
+FROM local/hadoop_base
+
+# Passphraseless SSH
+RUN cd /tmp/ssh && ./setup.sh hdfs
+
+USER hdfs
+WORKDIR /home/hdfs
+
+COPY --chown=hdfs:hdfs hadoop/hdfs_datanode_entrypoint.sh /entrypoint.sh
+RUN sudo chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]

@@ -1,0 +1,17 @@
+FROM local/hadoop_base
+
+# Passphraseless SSH
+RUN cd /tmp/ssh && ./setup.sh mapred
+
+RUN mkdir -p /opt/hadoop/logs && \
+    chown -R mapred:mapred /opt/hadoop/logs && \
+    chown -R mapred:mapred /opt/hadoop/etc
+
+
+USER mapred
+WORKDIR /home/mapred
+
+COPY --chown=mapred:mapred hadoop/mapred_hist_entrypoint.sh /entrypoint.sh
+RUN sudo chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]

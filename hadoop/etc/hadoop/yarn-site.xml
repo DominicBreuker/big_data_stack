@@ -1,5 +1,13 @@
 <configuration>
     <property>
+        <name>yarn.acl.enable</name>
+        <value>0</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>yarn-resourcemanager</value>
+    </property>
+    <property>
         <name>yarn.nodemanager.aux-services</name>
         <value>mapreduce_shuffle</value>
     </property>

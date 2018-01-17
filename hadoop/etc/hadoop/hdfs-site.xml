@@ -1,5 +1,13 @@
 <configuration>
     <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/opt/hadoop/data/nameNode</value>
+    </property>
+    <property>
+        <name>dfs.datanode.name.dir</name>
+        <value>/opt/hadoop/data/dataNode</value>
+    </property>
+    <property>
         <name>dfs.replication</name>
         <value>1</value>
     </property>

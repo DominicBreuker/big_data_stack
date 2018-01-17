@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+    hdfs-namenode:
+        image: $HDFS_NAMENODE_IMAGE_NAME
+        ports:
+            - "9000:9000"
+            - "50070:50070"
+
+    hdfs-datanode:
+        image: $HDFS_DATANODE_IMAGE_NAME
+
+    yarn-resourcemanager:
+        image: $YARN_RESOURCEMANAGER_IMAGE_NAME
+        ports:
+            - "8088:8088"
+
+    yarn-nodemanager:
+        image: $YARN_NODEMANAGER_IMAGE_NAME
+
+    mapred-hist:
+        image: $MAPRED_HIST_IMAGE_NAME

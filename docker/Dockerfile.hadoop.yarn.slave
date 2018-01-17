@@ -1,0 +1,16 @@
+FROM local/hadoop_base
+
+# Passphraseless SSH
+RUN cd /tmp/ssh && ./setup.sh yarn
+
+RUN mkdir -p /opt/hadoop/logs && \
+    chown -R yarn:yarn /opt/hadoop/logs && \
+    chown -R yarn:yarn /opt/hadoop/etc
+
+USER yarn
+WORKDIR /home/yarn
+
+COPY --chown=yarn:yarn hadoop/yarn_nodemanager_entrypoint.sh /entrypoint.sh
+RUN sudo chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]

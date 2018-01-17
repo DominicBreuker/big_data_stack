@@ -6,6 +6,28 @@ RUN wget -qO- http://mirror.dkd.de/apache/hadoop/common/hadoop-2.9.0/hadoop-2.9.
 
 ENV PATH="/opt/hadoop/bin:/opt/hadoop/sbin:${PATH}"
 
-RUN apt-get update && apt-get install -y ssh rsync vim net-tools
+RUN apt-get update && apt-get install -y ssh rsync vim net-tools sudo
 
 RUN sed -i '/export JAVA_HOME=${JAVA_HOME}/c\export JAVA_HOME=\/usr' /opt/hadoop/etc/hadoop/hadoop-env.sh
+
+RUN useradd -ms /bin/bash hdfs
+RUN useradd -ms /bin/bash yarn
+RUN useradd -ms /bin/bash mapred
+
+# allow sudo for everyone
+RUN echo "hdfs ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/hdfs && \
+    echo "yarn ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/yarn && \
+    echo "mapred ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/mapred && \
+    chmod 0440 /etc/sudoers.d/hdfs && \
+    chmod  0440 /etc/sudoers.d/yarn && \
+    chmod  0440 /etc/sudoers.d/mapred
+
+# Configure Hadoop
+COPY hadoop/etc/hadoop/core-site.xml /opt/hadoop/etc/hadoop/core-site.xml
+COPY hadoop/etc/hadoop/hdfs-site.xml /opt/hadoop/etc/hadoop/hdfs-site.xml
+COPY hadoop/etc/hadoop/mapred-site.xml /opt/hadoop/etc/hadoop/mapred-site.xml
+COPY hadoop/etc/hadoop/yarn-site.xml /opt/hadoop/etc/hadoop/yarn-site.xml
+
+ENV HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop/
+
+COPY ssh /tmp/ssh
