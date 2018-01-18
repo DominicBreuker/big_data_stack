@@ -4,8 +4,17 @@ set -e
 
 sudo service ssh start
 
-echo "Starting map reduce history server"
-mr-jobhistory-daemon.sh --config $HADOOP_CONF_DIR start historyserver
+for i in `seq 1 10`; do
+    echo "Waiting for HDFS to come up... ($i)"
+    sleep $i;
 
-echo "Running infinite loop to keep container alive"
-while true; do sleep 10000; done
+    if hdfs dfs -ls /; then
+        echo "HDFS available"
+        echo "Starting map reduce history server"
+        mapred --config $HADOOP_CONF_DIR historyserver
+    fi
+done
+
+echo "HDFS did not come up! Exiting..."
+exit 1
+

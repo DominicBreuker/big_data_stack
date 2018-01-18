@@ -34,3 +34,5 @@ keygen:
 run:
 	docker-compose -f $(DOCKER_COMPOSE_FILE) up --scale hdfs-datanode=2 --scale yarn-nodemanager=2
 
+bash-mapred-hist:
+	docker-compose -f $(DOCKER_COMPOSE_FILE) run mapred-hist /bin/bash
