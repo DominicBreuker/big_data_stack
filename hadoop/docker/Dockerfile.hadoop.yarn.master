@@ -10,7 +10,7 @@ RUN mkdir -p /opt/hadoop/logs && \
 USER yarn
 WORKDIR /home/yarn
 
-COPY --chown=yarn:yarn hadoop/yarn_nodemanager_entrypoint.sh /entrypoint.sh
+COPY --chown=yarn:yarn yarn_resourcemanager_entrypoint.sh /entrypoint.sh
 RUN sudo chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh"]

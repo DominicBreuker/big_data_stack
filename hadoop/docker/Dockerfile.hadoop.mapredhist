@@ -11,7 +11,7 @@ RUN mkdir -p /opt/hadoop/logs && \
 USER mapred
 WORKDIR /home/mapred
 
-COPY --chown=mapred:mapred hadoop/mapred_hist_entrypoint.sh /entrypoint.sh
+COPY --chown=mapred:mapred mapred_hist_entrypoint.sh /entrypoint.sh
 RUN sudo chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh"]

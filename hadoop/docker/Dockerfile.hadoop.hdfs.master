@@ -6,7 +6,7 @@ RUN cd /tmp/ssh && ./setup.sh hdfs
 USER hdfs
 WORKDIR /home/hdfs
 
-COPY --chown=hdfs:hdfs hadoop/hdfs_datanode_entrypoint.sh /entrypoint.sh
+COPY --chown=hdfs:hdfs hdfs_namenode_entrypoint.sh /entrypoint.sh
 RUN sudo chmod +x /entrypoint.sh
 
 CMD ["/entrypoint.sh"]

@@ -1,0 +1,12 @@
+FROM local/hadoop_base
+
+# Passphraseless SSH
+RUN cd /tmp/ssh && ./setup.sh hdfs
+
+USER hdfs
+WORKDIR /home/hdfs
+
+COPY . /home/hdfs/examples
+
+# Run this interactively as you need it
+CMD ["true"]

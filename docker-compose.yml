@@ -4,6 +4,7 @@ services:
     hdfs-namenode:
         image: $HDFS_NAMENODE_IMAGE_NAME
         ports:
+            - "22:22"
             - "9000:9000"
             - "50070:50070"
 
@@ -20,3 +21,8 @@ services:
 
     mapred-hist:
         image: $MAPRED_HIST_IMAGE_NAME
+        ports:
+            - "19888:19888"
+
+    edge:
+        image: $EDGE_IMAGE_NAME
